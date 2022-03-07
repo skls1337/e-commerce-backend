@@ -10,4 +10,10 @@ const {
 const { protect, authorize } = require('../middleware/auth');
 const router = express.Router();
 
+router.use(protect)
+
+router
+    .route('/')
+    .post(createOrder)
+
 module.exports = router;

@@ -20,6 +20,7 @@ connectDB();
 // Route files
 const products = require('./routes/products')
 const users = require('./routes/users')
+const orders = require('./routes/orders')
 const auth = require('./routes/auth')
 
 const app = express();
@@ -47,6 +48,7 @@ app.use(cors());
 
 app.use('/users', users)
 app.use('/products', products)
+app.use('/orders', orders)
 app.use('/auth', auth)
 
 // Dev logging middleware
