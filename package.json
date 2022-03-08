@@ -21,9 +21,9 @@
     "xss-clean": "^0.1.1"
   },
   "scripts": {
-    "start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve server.js",
-    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build server.js",
-    "dev": "nodemon server.js"
+    "start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve app",
+    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build app",
+    "dev": "nodemon ./app/server.js"
   },
   "name": "e-commerce-backend",
   "description": "",
