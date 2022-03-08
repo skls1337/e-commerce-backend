@@ -1,15 +1,26 @@
-const express = require('express');
+const express = require("express");
 const {
-    createOrder,
-} = require('../controllers/orders');
+  getOrders,
+  getOrder,
+  createOrder,
+  deleteOrder,
+  updateOrder,
+} = require("../controllers/orders");
+const Order = require("../models/Order");
 
-const { protect, authorize } = require('../middleware/auth');
+const { protect, authorize } = require("../middleware/auth");
 const router = express.Router();
 
-router.use(protect)
+const advancedResults = require("../middleware/advancedResults");
 
-router
-    .route('/')
-    .post(createOrder)
+router.use(protect);
+
+router.route("/").get(advancedResults(Order), getOrders).post(createOrder);
+
+router.route("/:id").get(getOrder);
+
+router.use(authorize("admin", "seller"));
+
+router.route("/:id").put(updateOrder).delete(deleteOrder);
 
 module.exports = router;
