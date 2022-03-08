@@ -7,9 +7,9 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
-const errorHandler = require("./middleware/error");
+const errorHandler = require("../middleware/error");
 const cors = require("cors");
-const connectDB = require("./config/db");
+const connectDB = require("../config/db");
 
 // Load env vars
 dotenv.config({ path: "./config/.env" });
@@ -18,10 +18,10 @@ dotenv.config({ path: "./config/.env" });
 connectDB();
 
 // Route files
-const products = require("./routes/products");
-const users = require("./routes/users");
-const orders = require("./routes/orders");
-const auth = require("./routes/auth");
+const products = require("../routes/products");
+const users = require("../routes/users");
+const orders = require("../routes/orders");
+const auth = require("../routes/auth");
 
 const app = express();
 

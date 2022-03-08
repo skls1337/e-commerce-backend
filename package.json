@@ -21,7 +21,8 @@
     "xss-clean": "^0.1.1"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve server.js",
+    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build server.js",
     "dev": "nodemon server.js"
   },
   "name": "e-commerce-backend",
@@ -37,5 +38,8 @@
   "bugs": {
     "url": "https://github.com/skls1337/e-commerce-backend/issues"
   },
-  "homepage": "https://github.com/skls1337/e-commerce-backend#readme"
+  "homepage": "https://github.com/skls1337/e-commerce-backend#readme",
+  "devDependencies": {
+    "netlify-plugin-inline-functions-env": "^1.0.9"
+  }
 }
