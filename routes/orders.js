@@ -5,6 +5,7 @@ const {
   createOrder,
   deleteOrder,
   updateOrder,
+  getMyOrders,
 } = require("../controllers/orders");
 const Order = require("../models/Order");
 
@@ -16,6 +17,8 @@ const advancedResults = require("../middleware/advancedResults");
 router.use(protect);
 
 router.route("/").get(advancedResults(Order), getOrders).post(createOrder);
+
+router.route("/my-orders").get(getMyOrders);
 
 router.route("/:id").get(getOrder);
 

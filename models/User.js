@@ -24,6 +24,36 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  name: {
+    type: String,
+    required: [true, "Please add an name"],
+    default: "name",
+  },
+  address: {
+    type: String,
+    required: [true, "Please add an address"],
+    default: "Address",
+  },
+  city: {
+    type: String,
+    required: [true, "Please add a city"],
+    default: "City",
+  },
+  zip: {
+    type: String,
+    required: [true, "Please add a zip code"],
+    default: "1234",
+  },
+  country: {
+    type: String,
+    required: [true, "Please add a country"],
+    default: "RO",
+  },
+  phone: {
+    type: String,
+    required: [true, "Please add a phone"],
+    maxlength: 11,
+  },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {

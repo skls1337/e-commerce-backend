@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: [true, "Please add a name"],
     trim: true,
@@ -17,6 +17,9 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: [true, "The price mmust be a positive number"],
     min: 0,
+  },
+  imageUrl: {
+    type: String,
   },
   quantity: {
     type: Number,

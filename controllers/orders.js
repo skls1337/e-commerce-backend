@@ -31,16 +31,10 @@ exports.getOrder = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.createOrder = asyncHandler(async (req, res, next) => {
   req.body.orderUserId = req.user.id;
-  const product = await Product.findById(req.body.productId);
   const user = await User.findById(req.body.orderUserId);
-  if (!product || !user) {
-    return next(new ErrorResponse(`User or product not found`, 404));
+  if (!user) {
+    return next(new ErrorResponse(`User not found`, 404));
   }
-
-  if (req.body.quantity > product.quantity) {
-    return next(new ErrorResponse(`Insuficient quantity`, 403));
-  }
-
   const order = await Order.create(req.body);
 
   res.status(201).json({
@@ -59,20 +53,9 @@ exports.updateOrder = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Order not found with id of ${req.params.id}`, 404)
     );
   }
-  if (req.body.productId) {
-    const product = await Product.findById(req.body.productId);
-    if (!product) {
-      return next(
-        new ErrorResponse(
-          `Product not found with id of ${req.body.productId}`,
-          404
-        )
-      );
-    }
-  }
 
-  if (req.body.orderUserId) {
-    const user = await User.findById(req.body.orderUserId);
+  if (req.body.userId) {
+    const user = await User.findById(req.body.userId);
     if (!user) {
       return next(new ErrorResponse("User not found", 404));
     }
@@ -99,4 +82,20 @@ exports.deleteOrder = asyncHandler(async (req, res, next) => {
     success: true,
     data: {},
   });
+});
+
+// @desc      Create new order
+// @route     DELETE /api/v1/order/my-orders
+// @access    Private
+exports.getMyOrders = asyncHandler(async (req, res, next) => {
+  req.body.orderUserId = req.user.id;
+  const user = await User.findById(req.body.orderUserId);
+  if (!user) {
+    return next(new ErrorResponse(`User not found`, 404));
+  }
+  const orders = await Order.find({ userId: req.body.orderUserId });
+  if (!orders) {
+    return next(new ErrorResponse("No orders not found", 404));
+  }
+  res.status(200).json({ success: true, data: orders });
 });
