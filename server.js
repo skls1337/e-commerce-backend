@@ -22,6 +22,7 @@ const products = require("./routes/products");
 const users = require("./routes/users");
 const orders = require("./routes/orders");
 const auth = require("./routes/auth");
+const sendInvoice = require("./routes/sendInvoice");
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use("/users", users);
 app.use("/products", products);
 app.use("/orders", orders);
 app.use("/auth", auth);
+app.use("/invoice", sendInvoice);
 
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
