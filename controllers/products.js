@@ -71,7 +71,21 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
     );
   }
 
-  product = await Product.findOneAndUpdate(req.params.id, req.body, {
+  if (req.body.price) {
+    await stripe.products.update(product.productStripe.product, {
+      active: false,
+    });
+
+    const _product = await stripe.products.create({ name: req.body.title });
+    const unit_amount = req.body.price * 100;
+    const productStripe = await stripe.prices.create({
+      product: _product.id,
+      unit_amount: unit_amount,
+      currency: "RON",
+    });
+    req.body.productStripe = productStripe;
+  }
+  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
@@ -96,7 +110,6 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
 
 exports.testProduct = asyncHandler(async (req, res, next) => {
   const product = await stripe.products.create({ name: req.body.name });
-  console.log(product);
   const price = await stripe.prices.create({
     product: product.id,
     unit_amount: 500,
