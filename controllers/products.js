@@ -1,6 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const Product = require("../models/Product");
+const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 // @desc      Get all Products
 // @route     GET /api/v1/products
@@ -90,5 +91,19 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: {},
+  });
+});
+
+exports.testProduct = asyncHandler(async (req, res, next) => {
+  const product = await stripe.products.create({ name: req.body.name });
+  console.log(product);
+  const price = await stripe.prices.create({
+    product: product.id,
+    unit_amount: 500,
+    currency: "ron",
+  });
+  res.status(200).json({
+    success: true,
+    data: price,
   });
 });

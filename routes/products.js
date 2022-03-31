@@ -5,6 +5,7 @@ const {
   createProduct,
   deleteProduct,
   updateProduct,
+  testProduct,
 } = require("../controllers/products");
 const Product = require("../models/Product");
 
@@ -18,6 +19,8 @@ router
   .route("/")
   .get(advancedResults(Product), getProducts)
   .post(protect, authorize("admin", "seller"), createProduct);
+
+router.route("/test").post(protect, authorize("admin", "seller"), testProduct);
 
 router
   .route("/:id")
