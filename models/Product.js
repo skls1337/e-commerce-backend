@@ -30,7 +30,7 @@ const ProductSchema = new mongoose.Schema({
   productStripe: {
     type: Object,
   },
-  slug: {
+  specifications: {
     type: String,
   },
   createdAt: {

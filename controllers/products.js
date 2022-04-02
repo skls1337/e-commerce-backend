@@ -107,16 +107,3 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
     data: {},
   });
 });
-
-exports.testProduct = asyncHandler(async (req, res, next) => {
-  const product = await stripe.products.create({ name: req.body.name });
-  const price = await stripe.prices.create({
-    product: product.id,
-    unit_amount: 500,
-    currency: "ron",
-  });
-  res.status(200).json({
-    success: true,
-    data: price,
-  });
-});

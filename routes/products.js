@@ -20,8 +20,6 @@ router
   .get(advancedResults(Product), getProducts)
   .post(protect, authorize("admin", "seller"), createProduct);
 
-router.route("/test").post(protect, authorize("admin", "seller"), testProduct);
-
 router
   .route("/:id")
   .get(getProduct)
